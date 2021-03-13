@@ -1,15 +1,38 @@
-const products = [];
+const fs = require("fs");
+const path = require("path");
 
+// The Path to the file as a global variable
+const p = path.join(
+  path.dirname(require.main.filename),
+  "data",
+  "products.json"
+);
+
+// Helper function to get the products from file
+const getProductsFromFile = (callback) => {
+  fs.readFile(p, (err, fileContent) => {
+    if (err) {
+      return callback([]); //If there is no file return empty array
+    }
+    callback(JSON.parse(fileContent)); //Else the fileContent
+  });
+};
+
+// The structure of our Product as a Class
 module.exports = class Product {
   constructor(t) {
     this.title = t;
   }
 
   save() {
-    products.push(this);
+    getProductsFromFile((products) => {
+      products.push(this);
+      fs.writeFile(p, JSON.stringify(products), (err) => console.log(err));
+    });
   }
 
-  static fetchAll() {
-    return products;
+  // We are receiving a callback function here from products.js
+  static fetchAll(callback) {
+    getProductsFromFile(callback);
   }
 };
