@@ -1,25 +1,28 @@
 const Product = require("../models/product");
 
 exports.getAddProduct = (req, res, next) => {
-  res.render("add-product", {
+  res.render("admin/add-product", {
     docTitle: "Add Product",
     path: "/admin/add-product",
   });
 };
 
 exports.postAddProduct = (req, res, next) => {
-  const product = new Product(req.body.title);
+  const title = req.body.title
+  const imageUrl = req.body.imageUrl
+  const price = req.body.price
+  const description = req.body.description
+  const product = new Product(title, imageUrl, description, price);
   product.save();
   res.redirect("/");
 };
 
 exports.getProducts = (req, res, next) => {
-  // We are passing a callback function here: products to get the data to this render directly
   Product.fetchAll((products) => {
-    res.render("shop", {
+    res.render("admin/products", {
       prods: products,
-      docTitle: "Shop",
-      path: "/",
+      docTitle: "Admin Products",
+      path: "/admin/products",
     });
   });
-};
+}
