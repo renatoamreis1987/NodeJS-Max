@@ -18,4 +18,6 @@ router.get('/edit-product/:productId', adminController.getEditProduct)
 
 router.post('/edit-product', adminController.postEditProduct)
 
+router.post('/delete-product/:productId', adminController.postDeleteProduct) // The productId goes from here
+
 module.exports = router

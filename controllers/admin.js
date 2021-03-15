@@ -18,6 +18,7 @@ exports.postAddProduct = (req, res, next) => {
   res.redirect("/");
 };
 
+
 exports.getEditProduct = (req, res, next) => {
   // bellow is query params
   const editMode = req.query.edit;
@@ -37,6 +38,16 @@ exports.getEditProduct = (req, res, next) => {
     });
   });
 };
+
+//// HERE
+exports.postDeleteProduct = (req, res, next) => {
+  const prodId = req.body.productId
+  console.log('This', req.params.productId)
+  Product.delete(prodId, callback => {
+    console.log(prodId)
+  })
+  res.redirect('/')
+}
 
 exports.postEditProduct = (req, res, next) => {
   const prodId = req.body.productId;

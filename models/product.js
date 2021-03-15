@@ -43,6 +43,10 @@ module.exports = class Product {
     });
   }
 
+  static delete(id, callback) { // TO CONTINUE FROM HERE
+    console.log('HELLO WORLD')
+  }
+
   // We are receiving a callback function here from products.js
   static fetchAll(callback) {
     getProductsFromFile(callback);
