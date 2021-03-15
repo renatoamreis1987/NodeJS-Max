@@ -44,7 +44,7 @@ exports.postCart = (req, res, next) => {
   // The bellow line comes from 'name="productId"' on product-detail.ejs
   const prodId = req.body.productId
   Product.findById(prodId, (product) => {
-    Cart.addProduct(prodId, product.price)
+    Cart(prodId, product.price)
   })
   res.redirect('/cart')
 }
